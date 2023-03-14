@@ -1,17 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 
-const Table = () => {
+const Table = ({ setId, setTodoValues }) => {
+  const [todos, setTodos] = useState([]);
+  const clickHandle = row => {
+    setId(row.userId);
+    setTodoValues({ id: row.id, title: row.title });
+  };
   const columns = [
-    { title: "Name", field: "name" },
-    { title: "Email", field: "email" },
-    { title: "Status", field: "status" },
-    { title: "Action" }
+    { title: "ToDo_ID", field: "id" },
+    { title: "Title", field: "title" },
+    {
+      title: "Status",
+      field: "completed"
+    },
+    {
+      title: "Action",
+      render: row => (
+        <button className="profileBtn" onClick={() => clickHandle(row)}>
+          view profile
+        </button>
+      )
+    }
   ];
-  const data = [{ name: "sankar", email: "sankar@gmail.com" }];
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then(response => response.json())
+      .then(data => setTodos(data));
+  }, [todos]);
   return (
     <>
-      <MaterialTable columns={columns} data={data} title="Todos" />
+      <MaterialTable
+        columns={columns}
+        data={todos}
+        title="Todos"
+        options={{
+          pagging: false
+        }}
+      />
     </>
   );
 };

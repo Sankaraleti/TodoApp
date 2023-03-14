@@ -1,22 +1,18 @@
-import React from "react";
-
+import React, { useState } from "react";
 import Table from "./Table.jsx";
+import UserProfile from "./UserProfile.jsx";
+
 const ListTodos = () => {
-  // const data = [];
-  // const [todos, setTodos] = useState("");
-  // useEffect(() => {
-  //   fetch("https://jsonplaceholder.typicode.com/todos")
-  //     .then(response => response.json())
-  //     .then(data => setTodos(data));
-  //   console.log(todos);
-  // }, [todos]);
+  const [id, setId] = useState("");
+  const [todoValues, setTodoValues] = useState("");
+  // console.log(id);
   return (
     <div className="Todo-container">
       <div className="todos">
-        <Table />
+        <Table setId={setId} setTodoValues={setTodoValues} />
       </div>
       <div className="user-profile">
-        <h1>user profile goes here </h1>
+        {id > 0 && <UserProfile id={id} todoValues={todoValues} />}
       </div>
     </div>
   );
