@@ -1,9 +1,10 @@
-
-
+import ListTodos from "./Components/ListTodos.jsx"
+import './Style.css';
 function App() {
   return (
-    <div className="App">
-      <h1>WorldHello </h1>
+    <div className="container">
+      {/* <h1>WorldHello </h1> */}
+      <ListTodos />
     </div>
   );
 }
